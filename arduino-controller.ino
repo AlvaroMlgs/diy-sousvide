@@ -28,13 +28,16 @@ void loop(void) {
 void mainCycle(void){
     float temp = getTemp();
     uint32_t temp_int=temp*1000;
-    //Serial.print(millis());
-    //Serial.print(",");
-    //Serial.print(temp_int);
-    //Serial.println();
+    printVal("t",millis());
+    printVal("T",temp_int);
+    Serial.println();
 
     uint16_t pot = potRead();
     dispPrint(pot);
-    //dispSetDots((int)0b00000010);
 }
 
+void printVal(char* mag, uint32_t val){
+    Serial.print(mag);
+    Serial.print(val);
+    Serial.print(",");
+}
