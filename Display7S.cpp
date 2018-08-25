@@ -21,14 +21,11 @@ void dispPrint(char* str){
     if (!strcmp(str,"9999")){
         Serial2.write(Disp7S_CMD_cursor);   // Set cursor command
         Serial2.write(0x00);                // Cursor to first position
-        //Serial2.write('F');
-        //Serial2.write('U');
-        //Serial2.write('L');
-        //Serial2.write('L');
         Serial2.write('B');
         Serial2.write('O');
         Serial2.write('I');
         Serial2.write('L');
+        dispSetDots(0x00);
     }
     else if (!strcmp(str,"0000")){
         Serial2.write(Disp7S_CMD_cursor);   // Set cursor command
@@ -37,9 +34,11 @@ void dispPrint(char* str){
         Serial2.write('O');
         Serial2.write('F');
         Serial2.write('F');
+        dispSetDots(0x00);
     }
     else{
         Serial2.print(str);
+        dispSetDots(0b00000010);    // Display the decimal point
     }
 }
 
