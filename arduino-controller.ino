@@ -29,15 +29,21 @@ void mainCycle(void){
     float temp = getTemp();
     uint32_t temp_int=temp*1000;
     printVal("t",millis());
-    printVal("T",temp_int);
-    Serial.println();
+    printVal("T",temp_int,1);
 
     uint16_t pot = potRead();
     dispPrint(pot);
 }
 
-void printVal(char* mag, uint32_t val){
+void printVal(char* mag, uint32_t val, uint8_t endline){
     Serial.print(mag);
     Serial.print(val);
-    Serial.print(",");
+    if (endline)
+        Serial.println();
+    else
+        Serial.print(",");
+}
+
+void printVal(char* mag, uint32_t val){
+    printVal(mag,val,1);
 }
