@@ -45,5 +45,5 @@ void printVal(char* mag, uint32_t val, uint8_t endline){
 }
 
 void printVal(char* mag, uint32_t val){
-    printVal(mag,val,1);
+    printVal(mag,val,0);
 }
