@@ -33,7 +33,7 @@ void mainCycle(void){
     uint16_t pot = potRead();
     dispPrint(pot);
 
-    setDutyCycle(pot);
+    setDutyCycle(pot/100);
 }
 
 void printVal(char* mag, uint32_t val, uint8_t endline){

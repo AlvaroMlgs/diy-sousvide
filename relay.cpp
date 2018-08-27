@@ -15,8 +15,8 @@ void initRelay(){
     TIM2_Init();
 }
 
-void setDutyCycle(uint16_t duty){
-    float pulse_float = (float)duty/10000*TIME_BASE_RELAY;
+void setDutyCycle(uint16_t duty){   // duty is a number from 0% to 100%
+    float pulse_float = (float)duty/100*TIME_BASE_RELAY;
     sConfigOC.Pulse = (uint16_t)pulse_float;
     HAL_TIM_PWM_ConfigChannel(&htim2,&sConfigOC,TIM_CHANNEL_1);
     HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
