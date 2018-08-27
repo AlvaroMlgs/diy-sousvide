@@ -1,17 +1,16 @@
-#include "Potentiometer.h"
 #include "LM35.h"
+#include "relay.h"
+#include "Potentiometer.h"
 #include "Display7S.h"
 
-int relay_pin=PB4;
-uint32_t main_cycle_period=1*pow(10,5);   // microseconds
+#define main_cycle_period 100000    // 10^5 us = 10 Hz
 uint32_t main_last_period;
 uint32_t main_current_period;
 
 void setup(void) {
     Serial.begin(115200);   // Comms with host PC
-    pinMode(relay_pin,OUTPUT);      // Turns relay on and off
-    digitalWrite(relay_pin,LOW);    // Start with relay off
     initTemp();     // Initialises temperature pin and sets resolution
+    initRelay();    // Initialises relay pin and sets it to LOW
     initDisp();     // Initialises interface to communicate with display
     int last_period=micros();
 }
@@ -33,6 +32,8 @@ void mainCycle(void){
 
     uint16_t pot = potRead();
     dispPrint(pot);
+
+    setDutyCycle(pot);
 }
 
 void printVal(char* mag, uint32_t val, uint8_t endline){
