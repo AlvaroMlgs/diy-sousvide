@@ -1,7 +1,8 @@
 #include "LM35.h"
-#include "relay.h"
+#include "Relay.h"
 #include "Potentiometer.h"
 #include "Display7S.h"
+#include "Controller.h"
 
 #define main_cycle_period 100000    // 10^5 us = 10 Hz
 uint32_t main_last_period;
@@ -12,6 +13,7 @@ void setup(void) {
     initTemp();     // Initialises temperature pin and sets resolution
     initRelay();    // Initialises relay pin and sets it to LOW
     initDisp();     // Initialises interface to communicate with display
+    initButton();   // Initialises the button to change modes and LEDs
     int last_period=micros();
 }
 

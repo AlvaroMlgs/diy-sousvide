@@ -1,5 +1,5 @@
 #include "Arduino.h"
-#include "relay.h"
+#include "Relay.h"
 
 void SystemClock_Config(void);
 static void GPIO_Init(void);
