@@ -2,7 +2,7 @@
 #include "Relay.h"
 #include "Potentiometer.h"
 #include "Display7S.h"
-#include "Controller.h"
+#include "Button.h"
 
 #define main_cycle_period 100000    // 10^5 us = 10 Hz
 uint32_t main_last_period;
@@ -35,7 +35,8 @@ void mainCycle(void){
     uint16_t pot = potRead();
     dispPrint(pot);
 
-    setDutyCycle(pot/100);
+    readButton();
+    //setDutyCycle(pot/100);
 }
 
 void printVal(char* mag, uint32_t val, uint8_t endline){
