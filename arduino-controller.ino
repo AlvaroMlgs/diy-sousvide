@@ -39,21 +39,25 @@ void mainCycle(void){
     float potValue = potRead();
     printVal("p",potValue*100,1);
 
-    /* Select what to print on the 7-Segment display based on
-       how much and when the potentiometer value changed      */
+    updateDisp7S(temp,potValue);
+
+}
+
+void updateDisp7S(float temp,float pot){
+    // Select what to print on the 7-Segment display based on
+    // how much and when the potentiometer value changed
     bool pot_display_timeout = main_current_period/1000-pot_value_time > 1000;
-    if ( abs(pot_value_last-potValue)>1 ){
-        pot_value_last = potValue;
+    if ( abs(pot_value_last-pot)>1 ){
+        pot_value_last = pot;
         pot_value_time = main_current_period/1000;
-        disp7SPrint(potValue,true);
+        disp7SPrint(pot,true);
     }
     else{
         if (pot_display_timeout)
             disp7SPrint(temp);
         else
-            disp7SPrint(potValue,true);
+            disp7SPrint(pot,true);
     }
-
 }
 
 void printVal(char* mag, uint32_t val, uint8_t endline){
