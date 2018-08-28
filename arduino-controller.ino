@@ -27,16 +27,18 @@ void loop(void) {
 }
 
 void mainCycle(void){
+
+    CONTROL_MODE = readButton();
+
     float temp = getTemp();
     uint32_t temp_int=temp*1000;
     printVal("t",millis());
-    printVal("T",temp_int,1);
+    printVal("T",temp_int);
 
-    uint16_t pot = potRead();
-    disp7SPrint(pot);
+    float potValue = potRead();
+    printVal("p",potValue*100,1);
+    disp7SPrint(potValue);
 
-    readButton();
-    //setDutyCycle(pot/100);
 }
 
 void printVal(char* mag, uint32_t val, uint8_t endline){

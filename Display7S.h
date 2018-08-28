@@ -10,5 +10,5 @@
 
 void initDisp7S(void);
 void disp7SPrint(char*);
-void disp7SPrint(uint16_t);
+void disp7SPrint(float);
 void disp7SSetDots(int);

@@ -11,9 +11,11 @@ void initDisp7S(){
     Serial2.print(8888);
 }
 
-void disp7SPrint(uint16_t num){
+void disp7SPrint(float num){
     char str[5];
-    sprintf (str, "%04i", num);
+    float num100 = num*100;
+    int num_int = (int)num100;
+    sprintf (str, "%04i", num_int);
     disp7SPrint(str);
 }
 
