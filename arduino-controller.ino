@@ -7,6 +7,8 @@
 #define main_cycle_period 100000    // 10^5 us = 10 Hz
 uint32_t main_last_period;
 uint32_t main_current_period;
+float pot_value_last = 0;       // Last pot value
+uint32_t pot_value_time = 0;    // Time that pot_value_last had a *significant* change
 
 void setup(void) {
     Serial.begin(115200);   // Comms with host PC
@@ -31,13 +33,26 @@ void mainCycle(void){
     CONTROL_MODE = readButton();
 
     float temp = getTemp();
-    uint32_t temp_int=temp*1000;
     printVal("t",millis());
-    printVal("T",temp_int);
+    printVal("T",temp*100);
 
     float potValue = potRead();
     printVal("p",potValue*100,1);
-    disp7SPrint(potValue);
+
+    /* Select what to print on the 7-Segment display based on
+       how much and when the potentiometer value changed      */
+    bool pot_display_timeout = main_current_period/1000-pot_value_time > 1000;
+    if ( abs(pot_value_last-potValue)>1 ){
+        pot_value_last = potValue;
+        pot_value_time = main_current_period/1000;
+        disp7SPrint(potValue);
+    }
+    else{
+        if (pot_display_timeout)
+            disp7SPrint(temp);
+        else
+            disp7SPrint(potValue);
+    }
 
 }
 
