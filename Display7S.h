@@ -11,4 +11,7 @@
 void initDisp7S(void);
 void disp7SPrint(char*);
 void disp7SPrint(float);
+void disp7SPrint(float,bool);
+void disp7SPrintBoil(void);
+void disp7SPrintOff(void);
 void disp7SSetDots(int);

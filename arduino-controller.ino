@@ -45,13 +45,13 @@ void mainCycle(void){
     if ( abs(pot_value_last-potValue)>1 ){
         pot_value_last = potValue;
         pot_value_time = main_current_period/1000;
-        disp7SPrint(potValue);
+        disp7SPrint(potValue,true);
     }
     else{
         if (pot_display_timeout)
             disp7SPrint(temp);
         else
-            disp7SPrint(potValue);
+            disp7SPrint(potValue,true);
     }
 
 }
