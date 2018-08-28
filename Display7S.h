@@ -8,7 +8,7 @@
 #define Disp7S_CMD_3rd      0x7D
 #define Disp7S_CMD_4th      0x7E
 
-void initDisp(void);
-void dispPrint(char*);
-void dispPrint(uint16_t);
-void dispSetDots(int);
+void initDisp7S(void);
+void disp7SPrint(char*);
+void disp7SPrint(uint16_t);
+void disp7SSetDots(int);

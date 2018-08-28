@@ -12,7 +12,7 @@ void setup(void) {
     Serial.begin(115200);   // Comms with host PC
     initTemp();     // Initialises temperature pin and sets resolution
     initRelay();    // Initialises relay pin and sets it to LOW
-    initDisp();     // Initialises interface to communicate with display
+    initDisp7S();     // Initialises interface to communicate with display
     initButton();   // Initialises the button to change modes and LEDs
     int last_period=micros();
 }
@@ -33,7 +33,7 @@ void mainCycle(void){
     printVal("T",temp_int,1);
 
     uint16_t pot = potRead();
-    dispPrint(pot);
+    disp7SPrint(pot);
 
     readButton();
     //setDutyCycle(pot/100);

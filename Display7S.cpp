@@ -3,7 +3,7 @@
 
 HardwareSerial Serial2(USART2);
 
-void initDisp(){
+void initDisp7S(){
     Serial2.begin(9600);
     Serial2.write(0x76);    // Clear display
     Serial2.write(0x7a);    // Set display brightness
@@ -11,13 +11,13 @@ void initDisp(){
     Serial2.print(8888);
 }
 
-void dispPrint(uint16_t num){
+void disp7SPrint(uint16_t num){
     char str[5];
     sprintf (str, "%04i", num);
-    dispPrint(str);
+    disp7SPrint(str);
 }
 
-void dispPrint(char* str){
+void disp7SPrint(char* str){
     if (!strcmp(str,"9999")){
         Serial2.write(Disp7S_CMD_cursor);   // Set cursor command
         Serial2.write(0x00);                // Cursor to first position
@@ -25,7 +25,7 @@ void dispPrint(char* str){
         Serial2.write('O');
         Serial2.write('I');
         Serial2.write('L');
-        dispSetDots(0x00);
+        disp7SSetDots(0x00);    // Clear any dots
     }
     else if (!strcmp(str,"0000")){
         Serial2.write(Disp7S_CMD_cursor);   // Set cursor command
@@ -34,15 +34,15 @@ void dispPrint(char* str){
         Serial2.write('O');
         Serial2.write('F');
         Serial2.write('F');
-        dispSetDots(0x00);
+        disp7SSetDots(0x00);    // Clear any dots
     }
     else{
         Serial2.print(str);
-        dispSetDots(0b00000010);    // Display the decimal point
+        disp7SSetDots(0b00000010);    // Display the decimal point
     }
 }
 
-void dispSetDots(int dots){
+void disp7SSetDots(int dots){
     // Turn on any, none, or all of the decimals.
     //  The six lowest bits in the decimals parameter sets a decimal 
     //  (or colon, or apostrophe) on or off. A 1 indicates on, 0 off.
