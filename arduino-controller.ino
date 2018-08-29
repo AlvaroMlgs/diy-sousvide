@@ -3,6 +3,7 @@
 #include "Potentiometer.h"
 #include "Display7S.h"
 #include "Button.h"
+#include "Hysteresis.h"
 
 #define main_cycle_period 100000    // 10^5 us = 10 Hz
 uint32_t main_last_period;
@@ -31,19 +32,36 @@ void loop(void) {
 void mainCycle(void){
 
     CONTROL_MODE = readButton();
+    printVal("M",CONTROL_MODE);
 
     float temp = getTemp();
     printVal("t",millis());
     printVal("T",temp*100);
 
     float potValue = potRead();
-    printVal("p",potValue*100,1);
+    printVal("r",potValue*100);
 
-    updateDisp7S(temp,potValue);
+    updateDisp7S(potValue,temp);
+
+    uint16_t dutyCycle = 0;
+    switch(CONTROL_MODE){
+        case HYSTERESIS:
+            dutyCycle = hystOut(potValue,temp);
+        case PI_WEIGHT:
+            (void)0;
+        case PI_WINDUP:
+            (void)0;
+        case PI_FILTER:
+            (void)0;
+        case EVENTS:
+            (void)0;
+    }
+    setDutyCycle(dutyCycle);
+    printVal("o",dutyCycle,1);
 
 }
 
-void updateDisp7S(float temp,float pot){
+void updateDisp7S(float pot,float temp){
     // Select what to print on the 7-Segment display based on
     // how much and when the potentiometer value changed
     bool pot_display_timeout = main_current_period/1000-pot_value_time > 1000;
@@ -60,7 +78,7 @@ void updateDisp7S(float temp,float pot){
     }
 }
 
-void printVal(char* mag, uint32_t val, uint8_t endline){
+void printVal(char* mag, int32_t val, int8_t endline){
     Serial.print(mag);
     Serial.print(val);
     if (endline)

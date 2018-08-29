@@ -27,7 +27,7 @@ int8_t readButton(){
     bool debounce_pass = (current_millis - last_mode_change > 6);
     if (request_change_mode && debounce_pass){
         if (last_button_state==HIGH)
-            cycleMode();
+            CONTROL_MODE = cycleMode();
         request_change_mode = false;
         last_mode_change = current_millis;
         last_button_state =  digitalRead(BUTTON_pin);
