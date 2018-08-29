@@ -1,6 +1,8 @@
 #include "Arduino.h"
 #include "LM35.h"
 
+float temp_avg = 0;
+
 void initTemp(void){
     pinMode(sense_pin,INPUT);
     analogReadResolution(ADC_res);
@@ -8,11 +10,13 @@ void initTemp(void){
 
 float getTemp(void){
     int sense_raw = analogRead(sense_pin);
-    //Serial.print("Raw: "); Serial.print(sense_raw); Serial.print("    ");
     float sense_volts = (float)sense_raw/(pow(2,ADC_res)-1) * ADC_maxvolts;
-    //Serial.print("Volts: "); Serial.print(sense_volts); Serial.print(" V    ");
     float sense_temp = 100*sense_volts;   // 10 mV/degC
-    //Serial.print("Temp: "); Serial.print(sense_temp); Serial.print(" C    ");
-    //Serial.println();
     return sense_temp;
+}
+
+float getTempAvg(){   // Exponential Weighted Moving Average (EWMA)
+    float alpha = 0.6;
+    temp_avg = alpha*getTemp() + (1-alpha)*temp_avg;
+    return temp_avg;
 }

@@ -6,3 +6,4 @@
 
 void initTemp(void);
 float getTemp(void);
+float getTempAvg(void);

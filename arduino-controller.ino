@@ -34,7 +34,7 @@ void mainCycle(void){
     CONTROL_MODE = readButton();
     printVal("M",CONTROL_MODE);
 
-    float temp = getTemp();
+    float temp = getTempAvg();
     printVal("t",millis());
     printVal("T",temp*100);
 
