@@ -24,7 +24,7 @@ void tryCycleMode(){
 
 int8_t readButton(){
     int current_millis = millis();
-    bool debounce_pass = (current_millis - last_mode_change > 7);
+    bool debounce_pass = (current_millis - last_mode_change > 8);
     if (request_change_mode && debounce_pass){
         if (last_button_state==HIGH)
             CONTROL_MODE = cycleMode();
