@@ -47,7 +47,7 @@ fig=figure(); hold on;
     title(customTitle);
 
 if nargin>=3 && varargin{2}
-    print(name,'-depsc');
+    print(name+".eps",'-depsc');
 end
 
 end
