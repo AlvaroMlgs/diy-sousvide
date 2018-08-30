@@ -2,7 +2,7 @@
 #include "PI_weight.h"
 
 float weight_integral = 0;
-float weight_prev_signal;
+float weight_prev_i_signal;
 
 uint16_t weightOut(float ref,float state){
     float error_p = PI_weight_wp*ref - state;
@@ -10,8 +10,8 @@ uint16_t weightOut(float ref,float state){
 
     float out_p = PI_weight_kp*error_p;
     float signal_i = PI_weight_ki*error_i;
-    float out_i = weight_integrate(weight_integral,weight_prev_signal,signal_i);
-    weight_prev_signal=signal_i;
+    float out_i = weight_integrate(weight_integral,weight_prev_i_signal,signal_i);
+    weight_prev_i_signal=signal_i;
 
     float output_float=out_p+out_i;
     uint16_t output_percent;
