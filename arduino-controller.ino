@@ -4,8 +4,11 @@
 #include "Display7S.h"
 #include "Button.h"
 #include "Hysteresis.h"
+#include "PI_weight.h"
 
-#define main_cycle_period 100000    // 10^5 us = 10 Hz
+extern int main_cycle_period;
+
+int main_cycle_period = 100000; // 10^5 us = 10 Hz
 uint32_t main_last_period;
 uint32_t main_current_period;
 float pot_value_last = 0;       // Last pot value
@@ -47,14 +50,19 @@ void mainCycle(void){
     switch(CONTROL_MODE){
         case HYSTERESIS:
             dutyCycle = hystOut(potValue,temp);
+            break;
         case PI_WEIGHT:
-            (void)0;
+            dutyCycle = weightOut(potValue,temp);
+            break;
         case PI_WINDUP:
             (void)0;
+            break;
         case PI_FILTER:
             (void)0;
+            break;
         case EVENTS:
             (void)0;
+            break;
     }
     setDutyCycle(dutyCycle);
     printVal("o",dutyCycle,1);
