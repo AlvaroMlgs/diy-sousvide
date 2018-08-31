@@ -5,6 +5,7 @@
 #include "Button.h"
 #include "Hysteresis.h"
 #include "PI_weight.h"
+#include "PI_windup.h"
 
 extern int main_cycle_period;
 
@@ -55,7 +56,7 @@ void mainCycle(void){
             dutyCycle = weightOut(potValue,temp);
             break;
         case PI_WINDUP:
-            (void)0;
+            dutyCycle = windupOut(potValue,temp);
             break;
         case PI_FILTER:
             (void)0;
