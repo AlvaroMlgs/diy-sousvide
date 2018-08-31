@@ -4,12 +4,12 @@
 int8_t CONTROL_MODE;
 volatile bool request_change_mode = false;
 unsigned int last_mode_change = 0;  // Milliseconds
-bool last_button_state = HIGH;      // Unpressed is HIGH (pullup)
+int last_button_state = HIGH;      // Unpressed is HIGH (pullup)
 
 
 void initButton(void){
     CONTROL_MODE = -1;  // Next time button is pressed start with first mode
-    pinMode(BUTTON_pin,INPUT_PULLUP);
+    pinMode(BUTTON_pin,INPUT);
     pinMode(HYSTERESIS_pin,OUTPUT);
     pinMode(PI_WEIGHT_pin,OUTPUT);
     pinMode(PI_WINDUP_pin,OUTPUT);
@@ -24,13 +24,13 @@ void tryCycleMode(){
 
 int8_t readButton(){
     int current_millis = millis();
-    bool debounce_pass = (current_millis - last_mode_change > 10);
+    bool debounce_pass = (current_millis - last_mode_change > 6);
     if (request_change_mode && debounce_pass){
         if (last_button_state==HIGH)
             CONTROL_MODE = cycleMode();
         request_change_mode = false;
         last_mode_change = current_millis;
-        last_button_state =  digitalRead(BUTTON_pin);
+        last_button_state = digitalRead(BUTTON_pin);
     }
     return CONTROL_MODE;
 }
