@@ -29,7 +29,9 @@ float windup_integrate(float previous_int,float previous_signal,float current_si
     float period = (float)main_cycle_period/pow(10,6);  // Convert to seconds
     // Trapezoid integration
     float new_int=previous_int+(previous_signal+current_signal)/2*period;
-    new_int=new_int+PI_windup_kw*(output_percent-output_float);     // Correct windup with the output values from last loop
+    /* Correct windup with the output values from last loop
+       Only add negative values, so that cool down is not affected */
+    new_int=new_int+PI_windup_kw*min((float)0,output_percent-output_float);
     windup_integral=new_int;    // Update global variable
     return new_int;
 }
