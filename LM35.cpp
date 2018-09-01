@@ -16,7 +16,7 @@ float getTemp(void){
 }
 
 float getTempAvg(){   // Exponential Weighted Moving Average (EWMA)
-    float alpha = 0.6;
+    float alpha = 0.5;
     temp_avg = alpha*getTemp() + (1-alpha)*temp_avg;
     return temp_avg;
 }
