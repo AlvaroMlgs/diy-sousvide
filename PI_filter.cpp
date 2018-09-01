@@ -25,11 +25,11 @@ uint16_t filterOut(float ref,float state){
 
 float filter_integrate(float previous_int,float previous_signal,float current_signal){
     float period = (float)main_cycle_period/pow(10,6);  // Convert to seconds
+    // Trapezoid integration
+    float new_int = previous_int+(previous_signal+current_signal)/2*period;
     // Only integrate if within the limits (min,max)
-    float new_int;
-    if (previous_int>PI_filter_min && previous_int<PI_filter_max){
-        // Trapezoid integration
-        new_int=previous_int+(previous_signal+current_signal)/2*period;
+    if (new_int>PI_filter_min && new_int<PI_filter_max){
+        previous_int=new_int;
     }
     else{   // Otherwise integral stays constant
         new_int=previous_int;
