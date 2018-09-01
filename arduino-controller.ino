@@ -20,7 +20,7 @@ void setup(void) {
     Serial.begin(115200);   // Comms with host PC
     initTemp();     // Initialises temperature pin and sets resolution
     initRelay();    // Initialises relay pin and sets it to LOW
-    initDisp7S();     // Initialises interface to communicate with display
+    initDisp7S();   // Initialises interface to communicate with display
     initButton();   // Initialises the button to change modes and LEDs
     int last_period=micros();
 }
@@ -43,24 +43,23 @@ void mainCycle(void){
     printVal("t",millis());
     printVal("T",temp*100);
 
-    float potValue = potRead();
-    printVal("r",potValue*100);
+    float pot_value = potRead();
+    printVal("r",pot_value*100);
 
-    updateDisp7S(potValue,temp);
+    updateDisp7S(pot_value,temp);
 
-    uint16_t dutyCycle = 0;
     switch(CONTROL_MODE){
         case HYSTERESIS:
-            dutyCycle = hystOut(potValue,temp);
+            duty_cycle = hystOut(pot_value,temp);
             break;
         case PI_WEIGHT:
-            dutyCycle = weightOut(potValue,temp);
+            duty_cycle = weightOut(pot_value,temp);
             break;
         case PI_WINDUP:
-            dutyCycle = windupOut(potValue,temp);
+            duty_cycle = windupOut(pot_value,temp);
             break;
         case PI_FILTER:
-            dutyCycle = filterOut(potValue,temp);
+            duty_cycle = filterOut(pot_value,temp);
             break;
         case EVENTS:
             (void)0;
