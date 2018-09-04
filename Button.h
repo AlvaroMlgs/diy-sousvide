@@ -6,12 +6,12 @@
 #define PI_FILTER   3
 #define EVENTS      4
 
-#define BUTTON_pin      PB3
-#define HYSTERESIS_pin  PB12
-#define PI_WEIGHT_pin   PB13
-#define PI_WINDUP_pin   PB14
-#define PI_FILTER_pin   PB15
-#define EVENTS_pin      PB11
+#define BUTTON_pin      PA1
+#define HYSTERESIS_pin  PA5
+#define PI_WEIGHT_pin   PA6
+#define PI_WINDUP_pin   PA7
+#define PI_FILTER_pin   PB0
+#define EVENTS_pin      PB1
 
 extern int8_t CONTROL_MODE;
 

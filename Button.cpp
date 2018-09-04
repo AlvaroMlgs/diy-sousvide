@@ -14,6 +14,7 @@ void initButton(void){
     pinMode(PI_WEIGHT_pin,OUTPUT);
     pinMode(PI_WINDUP_pin,OUTPUT);
     pinMode(PI_FILTER_pin,OUTPUT);
+    pinMode(EVENTS_pin,OUTPUT);
 
     attachInterrupt(BUTTON_pin,tryCycleMode,CHANGE);
 }
