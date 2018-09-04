@@ -1,5 +1,6 @@
 #include "Arduino.h"
 #include "PI_filter.h"
+#include "misc.h"
 
 float filter_integral=0;
 float filter_prev_i_signal;
@@ -10,6 +11,8 @@ uint16_t filterOut(float ref,float state){
     float signal_i = PI_filter_ki*(ref-state);
     float out_i=filter_integrate(filter_integral,filter_prev_i_signal,signal_i);
     filter_prev_i_signal=signal_i;
+    printVal("op",out_p);
+    printVal("oi",out_i);
 
     float output_float=out_p+out_i;
     uint16_t output_percent;

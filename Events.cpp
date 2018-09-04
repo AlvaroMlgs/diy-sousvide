@@ -1,5 +1,6 @@
 #include "Arduino.h"
 #include "Events.h"
+#include "misc.h"
 
 float last_error = 0;
 uint32_t current_time = 0;
@@ -25,12 +26,8 @@ uint16_t eventsOut(float ref,float state){
     float signal_i = EVENTS_ki*(ref-state);
     float out_i = eventsIntegrate(events_integral,events_prev_i_signal,signal_i,millis()-last_time);
     events_prev_i_signal=signal_i;
-    //Serial.print("p");
-    //Serial.print(out_p);
-    //Serial.print(",");
-    //Serial.print("i");
-    //Serial.print(out_i);
-    //Serial.print(",");
+    printVal("op",out_p);
+    printVal("oi",out_i,true);
 
     float output_float=out_p+out_i;
     uint16_t output_percent;

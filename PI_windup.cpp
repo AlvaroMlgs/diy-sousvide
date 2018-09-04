@@ -1,5 +1,6 @@
 #include "Arduino.h"
 #include "PI_windup.h"
+#include "misc.h"
 
 float windup_integral = 0;
 float windup_prev_i_signal;
@@ -12,6 +13,8 @@ uint16_t windupOut(float ref,float state){
     float signal_i = PI_windup_ki*(ref-state);
     float out_i = windup_integrate(windup_integral,windup_prev_i_signal,signal_i);
     windup_prev_i_signal=signal_i;
+    printVal("op",out_p);
+    printVal("oi",out_i);
 
     output_float=out_p+out_i;
     output_percent;
