@@ -22,7 +22,6 @@ void setDutyCycle(uint16_t duty){   // duty is a number from 0% to 100%
     HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
 }
 
-
 void SystemClock_Config(void)
 {
 
@@ -68,10 +67,8 @@ void SystemClock_Config(void)
 
 static void GPIO_Init(void)
 {
-
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOA_CLK_ENABLE();
-
 }
 
 static void TIM2_Init(void)
@@ -117,9 +114,7 @@ static void TIM2_Init(void)
   {
     _Error_Handler(__FILE__, __LINE__);
   }
-
   HAL_TIM_MspPostInit(&htim2);
-
 }
 
 void HAL_TIM_MspPostInit(TIM_HandleTypeDef* htim)
