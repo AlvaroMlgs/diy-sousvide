@@ -29,7 +29,6 @@ void setup(void) {
     initRelay();    // Initialises relay pin and sets it to LOW
     initDisp7S();   // Initialises interface to communicate with display
     initButton();   // Initialises the button to change modes and LEDs
-    int last_period=micros();
 }
 
 void loop(void) {
