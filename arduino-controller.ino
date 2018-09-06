@@ -91,13 +91,13 @@ void updateDisp7S(float pot,float temp){
     // Select what to print on the 7-Segment display based on
     // how much and when the potentiometer value changed
     bool pot_display_timeout = main_current_period/1000-pot_value_time > 3000;
-    if ( abs(pot_value_last-pot)>1 ){
+    if ( abs(pot_value_last-pot)>1 ){   // If it was a significant change
         pot_value_last = pot;
-        pot_value_time = main_current_period/1000;
+        pot_value_time = main_current_period/1000;  // Convert to milliseconds
         disp7SPrint(pot,true);
     }
     else{
-        if (pot_display_timeout)
+        if (pot_display_timeout)    // If enough time has passed since showing pot value
             disp7SPrint(temp);
         else
             disp7SPrint(pot,true);
