@@ -83,7 +83,10 @@ void mainCycle(void){
     if (CONTROL_MODE!=EVENTS){  // Will be done in the main function
         setDutyCycle(duty_cycle);
     }
-    printVal("o",duty_cycle,1);
+    if (CONTROL_MODE==EVENTS && request_event)
+        printVal("o",duty_cycle);
+    else
+        printVal("o",duty_cycle,1);
 
 }
 
